@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Cumbre – Análisis y Diseño de Sistemas</title>
+<style>
+:root{--bg:#f6f3ee;--card:#fff;--ink:#23201c;--mute:#6b645b;--acc:#8a5a2b;--acc2:#3d5a6c;--line:#e0d9cf;--soft:#efe8dc;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17161a;--card:#211f24;--ink:#ece8e1;--mute:#a39b8f;--acc:#d9a25f;--acc2:#8fb3c7;--line:#363239;--soft:#2a2730;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17161a;--card:#211f24;--ink:#ece8e1;--mute:#a39b8f;--acc:#d9a25f;--acc2:#8fb3c7;--line:#363239;--soft:#2a2730;color-scheme:dark}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,"Times New Roman",serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:10}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--line);z-index:9;overflow-x:auto;white-space:nowrap;padding:.6rem 1rem;font:600 13px system-ui,sans-serif}
+nav a{color:var(--mute);text-decoration:none;margin-right:1rem}nav a:hover{color:var(--acc)}
+header{text-align:center;padding:3.5rem 1.2rem 2.5rem;background:var(--soft);border-bottom:1px solid var(--line)}
+.tag{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+h1{font-size:clamp(2rem,6vw,3.2rem);margin:.4rem 0;line-height:1.1}
+header p{max-width:640px;margin:.6rem auto;color:var(--mute)}
+main{max-width:820px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.5rem;margin:1.2rem 0}
+h2{font-size:1.4rem;margin:0 0 .6rem;color:var(--acc)}h3{font-size:1.05rem;margin:1.1rem 0 .3rem;color:var(--acc2)}
+.part{font:700 13px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:2.2rem 0 0}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin-top:1.2rem;text-align:left;font:14px system-ui,sans-serif}
+.meta div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem}
+.meta b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+ul,ol{padding-left:1.3rem}li{margin:.25rem 0}
+.pill{display:inline-block;font:600 12px system-ui,sans-serif;padding:.15rem .6rem;border-radius:99px;background:var(--soft);border:1px solid var(--line);margin:.15rem .15rem 0 0}
+.wip{border-style:dashed}.st{font:600 12px system-ui,sans-serif;color:var(--acc)}
+.tree{font:13px/1.4 system-ui,sans-serif;display:grid;gap:.5rem;text-align:center}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.5rem}
+.n{padding:.55rem;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.n.core{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:700;font-size:14px}
+.lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font:14px system-ui,sans-serif;min-width:480px}
+th,td{border:1px solid var(--line);padding:.45rem .6rem;text-align:left}th{background:var(--soft)}
+.g{position:relative;height:26px;background:var(--soft);border-radius:6px;min-width:420px}
+.g i{position:absolute;top:3px;bottom:3px;background:var(--acc2);border-radius:4px}
+footer{text-align:center;color:var(--mute);font:13px system-ui,sans-serif;padding:2rem 1rem}
+</style>
+</head>
+<body>
+<nav>
+<a href="#portada">Portada</a><a href="#intro">Introducción</a><a href="#antecedentes">Antecedentes</a><a href="#problema">Problema</a><a href="#arbol">Árbol</a><a href="#objetivos">Objetivos</a><a href="#metodo">Método</a><a href="#plan">Planificación</a><a href="#estructurado">II. Estructurado</a><a href="#oo">III. Orientado a Objetos</a>
+</nav>
+
+<header id="portada">
+<div class="tag">Análisis y Diseño de Sistemas · Gestión 2026</div>
+<h1>La Cumbre – Genuine Pewter</h1>
+<p>Sistema de Gestión de Producción, Inventario, Ventas y Envíos para una microempresa metalúrgica artesanal</p>
+<div class="meta" style="max-width:640px;margin-inline:auto">
+<div><b>Empresa</b>La Cumbre</div>
+<div><b>Tipo de sistema</b>Producción, Inventario, Ventas y Envíos</div>
+<div><b>Paradigmas</b>Análisis Estructurado + Orientado a Objetos (UML)</div>
+<div><b>Equipo de auditores</b>[Nombres de los integrantes (4 a 6)]</div>
+<div><b>Docente</b>[Nombre del docente]</div>
+<div><b>Última actualización</b>29 de octubre de 2026</div>
+</div>
+</header>
+
+<main>
+<p class="part">I. Generalidades y marco teórico</p>
+
+<section id="intro"><h2>1. Introducción</h2>
+<p>Las microempresas artesanales sostienen buena parte de la economía local, pero rara vez cuentan con sistemas que ordenen su operación. Este trabajo aplica el Análisis y Diseño de Sistemas, bajo los paradigmas Estructurado y Orientado a Objetos, a <b>La Cumbre</b>, una microempresa metalúrgica que elabora y comercializa artesanías y productos decorativos en estaño, plata, plomo, cobre y antimonio.</p>
+<p>El documento se publica de forma iterativa e incremental: cada entrega añade capas de análisis y diseño sobre la anterior, hasta llegar a un modelo completo del sistema propuesto.</p></section>
+
+<section id="antecedentes"><h2>2. Antecedentes</h2>
+<p><b>La empresa.</b> La Cumbre se dedica a la elaboración y comercialización de artesanías en metales como estaño, plata, plomo, cobre y antimonio. Su línea incluye aladinos, reconocimientos, cálices, vineros, portavelas, candelabros y pergaminos. Opera bajo la marca <i>La Cumbre – Genuine Pewter</i> y tiene presencia en Facebook.</p>
+<p><b>Forma de operar.</b> La empresa recibe únicamente pedidos, siempre al por mayor, y realiza entregas a distintos departamentos del país y al exterior. La atención de clientes y el registro de pedidos se realizan por canales informales (mensajería y redes sociales).</p>
+<p><b>Situación actual.</b> Al no existir un sistema, la información de pedidos, materiales, producción y envíos depende de la memoria y de los dispositivos personales del propietario. Un hecho reciente lo ilustra: la pérdida del teléfono celular del propietario puso en riesgo el acceso a su página y a sus contactos.</p>
+<p class="st">Nota para el equipo: ampliar con año de fundación, ubicación del taller y número de empleados tras la entrevista.</p></section>
+
+<section id="problema"><h2>3. Planteamiento del problema</h2>
+<p>La Cumbre gestiona producción, inventario de materia prima, pedidos al por mayor y envíos de forma manual y dispersa. Esto genera: pedidos sin registro formal, falta de control de existencias de metales, ausencia de seguimiento del estado de cada pedido, envíos sin trazabilidad hacia distintos departamentos y países, y dependencia de un único dispositivo para conservar la información comercial.</p>
+<p>Como consecuencia, existe riesgo de pérdida de información, errores en cantidades y costos, retrasos en entregas y dificultad para planificar la producción según la demanda.</p></section>
+
+<section id="arbol"><h2>4. Árbol de problemas</h2>
+<div class="tree">
+<div class="lbl">Efectos</div>
+<div class="row"><div class="n">Pérdida de información de clientes y pedidos</div><div class="n">Retrasos y errores en las entregas</div><div class="n">Costos y márgenes desconocidos</div><div class="n">Dificultad para crecer y atender más clientes</div></div>
+<div class="lbl">Problema central</div>
+<div class="n core">Gestión manual y desorganizada de producción, inventario, ventas y envíos en La Cumbre</div>
+<div class="lbl">Causas</div>
+<div class="row"><div class="n">Pedidos recibidos por mensajería sin registro formal</div><div class="n">Sin control de existencias de metales y productos</div><div class="n">Sin planificación de producción por pedido</div><div class="n">Sin seguimiento de envíos nacionales e internacionales</div><div class="n">Información guardada en un solo celular</div></div>
+</div></section>
+
+<section id="problema-f"><h2>5. Formulación del problema</h2>
+<p>¿De qué manera un sistema de gestión de producción, inventario, ventas y envíos, modelado con Análisis Estructurado y Orientado a Objetos, puede mejorar el control de pedidos al por mayor, existencias de metales y entregas de la microempresa La Cumbre?</p></section>
+
+<section id="objetivos"><h2>6. Propósito del estudio</h2>
+<h3>Objetivo general</h3>
+<p>Analizar y diseñar un sistema de gestión de producción, inventario, ventas y envíos para La Cumbre, aplicando los paradigmas Estructurado y Orientado a Objetos con UML.</p>
+<h3>Objetivos específicos</h3>
+<ol>
+<li>Levantar y documentar los procesos actuales de pedidos, producción, inventario y envíos.</li>
+<li>Identificar requisitos funcionales y no funcionales del sistema.</li>
+<li>Modelar el sistema con Análisis Estructurado: diagrama de contexto, DFD por niveles, diccionario de datos y modelo entidad-relación.</li>
+<li>Modelar el sistema con Orientación a Objetos: casos de uso, clases, secuencia, actividades y estados.</li>
+<li>Elaborar prototipos de interfaz y un plan de implementación.</li>
+</ol></section>
+
+<section id="metodo"><h2>7. Método, medios e instrumentos</h2>
+<p><b>Metodología.</b> Desarrollo iterativo e incremental. Para el paradigma estructurado se usa Análisis Estructurado clásico (Yourdon/DeMarco); para el orientado a objetos, UML con un proceso tipo Proceso Unificado.</p>
+<p><b>Técnicas e instrumentos de investigación:</b></p>
+<span class="pill">Entrevista al propietario</span><span class="pill">Observación del taller</span><span class="pill">Revisión de pedidos y chats</span><span class="pill">Cuestionario</span><span class="pill">Análisis documental</span>
+<p><b>Herramientas:</b></p>
+<span class="pill">Draw.io / StarUML / Visual Paradigm</span><span class="pill">Word</span><span class="pill">Blog (este sitio)</span>
+<h3>Justificación</h3>
+<p>Un sistema propio protege la información de la empresa, reduce errores y permite atender pedidos mayoristas con trazabilidad. Académicamente, el caso permite aplicar ambos paradigmas sobre un negocio real y completo.</p>
+<h3>Alcances y límites</h3>
+<ul><li><b>Incluye:</b> pedidos, producción, inventario de materia prima y producto, ventas al por mayor y envíos nacionales e internacionales.</li>
+<li><b>No incluye:</b> venta al detalle, comercio electrónico, contabilidad completa ni facturación electrónica.</li></ul></section>
+
+<section id="plan"><h2>8. Planificación de actividades</h2>
+<div class="scroll"><table>
+<tr><th>Fase</th><th>Actividades</th><th>Fechas</th></tr>
+<tr><td>1. Generalidades</td><td>Portada a formulación, objetivos, método y plan; publicación del blog</td><td>26–29 oct</td></tr>
+<tr><td>2. Análisis estructurado</td><td>Contexto, DFD, diccionario de datos, MER, especificaciones</td><td>30 oct–13 nov</td></tr>
+<tr><td>3. Análisis y diseño OO</td><td>Casos de uso, clases, secuencia, actividades, estados, componentes</td><td>14–27 nov</td></tr>
+<tr><td>4. Integración</td><td>Prototipos, revisión, impresión según normas</td><td>28 nov–5 dic</td></tr>
+<tr><td>5. Entrega y defensa</td><td>Publicación de URL, entrega impresa y defensa</td><td>8 dic</td></tr>
+</table></div>
+<h3>Diagrama de Gantt (26 oct – 8 dic)</h3>
+<div class="scroll">
+<p style="margin:.2rem 0;font:12px system-ui">F1</p><div class="g"><i style="left:0;width:9%"></i></div>
+<p style="margin:.2rem 0;font:12px system-ui">F2</p><div class="g"><i style="left:9%;width:34%"></i></div>
+<p style="margin:.2rem 0;font:12px system-ui">F3</p><div class="g"><i style="left:43%;width:32%"></i></div>
+<p style="margin:.2rem 0;font:12px system-ui">F4</p><div class="g"><i style="left:75%;width:18%"></i></div>
+<p style="margin:.2rem 0;font:12px system-ui">F5</p><div class="g"><i style="left:96%;width:4%"></i></div>
+</div></section>
+
+<p class="part">II. Análisis y diseño estructurado</p>
+<section id="estructurado" class="wip"><h2>Análisis estructurado <span class="st">· en construcción</span></h2>
+<p>Se publicará en la siguiente iteración (30 oct – 13 nov):</p>
+<ul><li>Diagrama de contexto</li><li>Diagrama de flujo de datos, niveles 0, 1 y 2</li><li>Diccionario de datos</li><li>Modelo entidad-relación y modelo relacional</li><li>Especificación de procesos (pseudocódigo)</li><li>Diseño estructurado: diagrama de estructura</li></ul></section>
+
+<p class="part">III. Análisis y diseño orientado a objetos</p>
+<section id="oo" class="wip"><h2>Orientado a objetos con UML <span class="st">· en construcción</span></h2>
+<p>Se publicará en la siguiente iteración (14 – 27 nov):</p>
+<ul><li>Requisitos y casos de uso con sus especificaciones</li><li>Diagrama de clases y de objetos</li><li>Diagramas de secuencia y colaboración</li><li>Diagramas de actividades y de estados</li><li>Diagramas de componentes y despliegue</li></ul></section>
+</main>
+<footer>La Cumbre · Análisis y Diseño de Sistemas · 2026<br>Publicación incremental: se actualiza con cada entrega.</footer>
+</body>
+</html>
